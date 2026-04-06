@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunrise Diagnostic Centre | Trusted Medical Reports</title>
+    
+    <!-- Favicon (SD) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23e91e63%22 font-family=%22Arial%22 font-weight=%22bold%22>SD</text></svg>">
+    
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* --- CSS STYLING --- */
+        :root {
+            --primary: #e91e63; /* Pink from logo */
+            --primary-light: #fce4ec;
+            --secondary: #ffffff;
+            --accent: #f8f9fa;
+            --text-dark: #1a1a1b;
+            --text-muted: #64748b;
+            --footer: #000000;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --secondary: #0f172a;
+            --accent: #1e293b;
+            --text-dark: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary-light: #311b22;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        body { background-color: var(--secondary); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; transition: background 0.3s; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* Top Bar */
+        .top-bar { background: var(--primary); color: white; padding: 10px 0; font-size: 14px; }
+        .bar-content { display: flex; justify-content: space-between; align-items: center; }
+        .social-links a { color: white; margin-right: 15px; text-decoration: none; font-size: 1.1rem; transition: opacity 0.2s; }
+        .social-links a:hover { opacity: 0.8; }
+
+        /* Navbar */
+        .main-header { background: var(--secondary); padding: 15px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; }
+        
+        .logo { display: flex; align-items: center; cursor: pointer; text-decoration: none; }
+        .logo-circle { 
+            background: var(--primary); color: white; width: 42px; height: 42px; 
+            border-radius: 12px; display: flex; align-items: center; justify-content: center; 
+            font-weight: 800; font-size: 1.2rem; margin-right: 12px;
+        }
+        .logo-text { font-size: 1.3rem; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
+        .logo-text span { color: var(--text-dark); }
+
+        .nav-menu { display: flex; list-style: none; gap: 30px; }
+        .nav-menu a { text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 15px; transition: var(--transition); }
+        .nav-menu a:hover { color: var(--primary); }
+
+        .nav-actions { display: flex; align-items: center; gap: 10px; }
+        .icon-btn { 
+            background: var(--accent); border: none; width: 40px; height: 40px; 
+            border-radius: 10px; cursor: pointer; color: var(--text-dark); transition: var(--transition);
+        }
+        .icon-btn:hover { background: var(--primary-light); color: var(--primary); }
+
+        /* Hero Section */
+        .hero { padding: 80px 0; background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary) 100%); }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; color: var(--text-dark); font-weight: 800; }
+        .hero-text p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px; }
+        .hero-img { width: 100%; border-radius: 30px; box-shadow: var(--shadow); }
+
+        /* Buttons */
+        .btn { padding: 14px 28px; border-radius: 12px; font-weight: 700; cursor: pointer; transition: var(--transition); border: none; font-size: 15px; }
+        .btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4); }
+
+        /* Test Cards */
+        .section-padding { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .test-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; }
+        
+        .test-card { 
+            background: var(--secondary); border-radius: 24px; padding: 20px; 
+            border: 1px solid rgba(0,0,0,0.05); transition: var(--transition); text-align: left;
+        }
+        .test-card:hover { transform: translateY(-10px); background: var(--primary-light); border-color: var(--primary); }
+        .test-img { width: 100%; height: 180px; object-fit: cover; border-radius: 18px; margin-bottom: 20px; }
+        .test-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+        .price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .old-price { text-decoration: line-through; color: var(--text-muted); font-size: 14px; }
+        .new-price { color: #10b981; font-weight: 800; font-size: 1.4rem; }
+        .btn-book-sm { background: var(--primary); color: white; width: 100%; padding: 12px; border-radius: 10px; font-weight: 700; border: none; cursor: pointer; }
+
+        /* Modal Styles */
+        .modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(8px); z-index: 2000; 
+        }
+        .modal-content { 
+            background: var(--secondary); width: 90%; max-width: 550px; margin: 50px auto; 
+            padding: 40px; border-radius: 30px; position: relative; animation: slideUp 0.4s ease;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Form UI */
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea { 
+            width: 100%; padding: 12px; border-radius: 10px; border: 1px solid var(--accent); 
+            background: var(--accent); color: var(--text-dark); outline: none;
+        }
+
+        /* Location */
+        .loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: var(--accent); padding: 40px; border-radius: 30px; }
+        .qr-box { background: white; padding: 15px; display: inline-block; border-radius: 15px; margin-top: 20px; }
+
+        /* Footer */
+        footer { background: var(--footer); color: white; padding: 60px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+
+        /* Page Display Logic */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* Responsive Layout */
+        @media (max-width: 1024px) {
+            .hero-grid,
+            .loc-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .nav-menu {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-text p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .bar-content,
+            .nav-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            .hero {
+                padding: 50px 0;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-text p {
+                font-size: 1rem;
+            }
+
+            .btn,
+            .btn-book-sm,
+            .btn-primary {
+                width: 100%;
+            }
+
+            .test-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .price-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+                padding: 20px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-grid div:last-child {
+                text-align: center;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .icon-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            #location-page iframe {
+                width: 100%;
+                min-height: 280px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div class="container bar-content">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div><i class="fas fa-phone"></i> +91 98765 43210</div>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="container navbar">
+            <a href="#" class="logo" onclick="showPage('home')">
+                <div class="logo-circle">SD</div>
+                <div class="logo-text">Sunrise <span>Diagnostic</span></div>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('tests')">Tests</a></li>
+                <li><a href="#" onclick="showPage('location')">Location</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="icon-btn" id="searchBtn"><i class="fas fa-search"></i></button>
+                <button class="icon-btn" id="themeToggle"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- HOME PAGE -->
+    <main id="home-page" class="page active">
+        <section class="hero">
+            <div class="container hero-grid">
+                <div class="hero-text">
+                    <h1>Trusted Diagnostic Centre</h1>
+                    <p>by Dr. Mukesh kumawat</p>
+                    <p>Accurate Blood Tests & Medical Reports with state-of-the-art technology and expert care.</p>
+                    <button class="btn btn-primary" onclick="showPage('tests')">View All Tests</button>
+                </div>
+                <img src="sdbanner.png" class="hero-img" alt="Lab">
+            </div>
+        </section>
+
+        <section class="container section-padding">
+            <div class="section-header">
+                <h2>Popular Tests</h2>
+            </div>
+            <div id="popular-grid" class="test-grid"></div>
+        </section>
+    </main>
+
+    <!-- ALL TESTS PAGE -->
+    <main id="tests-page" class="page">
+        <section class="container section-padding">
+            <div class="section-header">
+                <h2>Comprehensive Test Menu</h2>
+            </div>
+            <div id="all-tests-grid" class="test-grid"></div>
+        </section>
+    </main>
+
+    <!-- LOCATION PAGE -->
+    <main id="location-page" class="page">
+        <section class="container section-padding">
+            <div class="section-header">
+                <h2>Our Location</h2>
+            </div>
+            <div class="loc-grid">
+                <div>
+                    <h3>Sunrise Diagnostic Centre</h3>
+                    <p>Near kanakpura Railway station</p>
+                    <p>Jaipur, Rajsthan</p>
+                    <div class="qr-box">
+                        <p style="color: black; font-weight: bold; margin-bottom: 10px;">Scan for Maps</p>
+                        <img src="sdqr.png" alt="QR">
+                    </div>
+                </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1331.5960819088532!2d75.7022839991616!3d26.932094722116837!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396c4d86a1ee2997%3A0xd049f273e87d92c3!2sSunrise%20Diagnostic%20Centre!5e1!3m2!1sen!2sin!4v1773679279738!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <div class="logo-circle" style="margin-bottom: 15px;">SD</div>
+                <h2>Sunrise Diagnostic</h2>
+                <p style="color: #888; margin-top: 10px;">Precision in every report.</p>
+            </div>
+            <div style="text-align: right;">
+                <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                <p><i class="fas fa-envelope"></i> contact@sunrisediagnostic.com</p>
+            </div>
+        </div>
+        <div class="container" style="border-top: 1px solid #333; padding-top: 20px; text-align: center; color: #555;">
+            &copy; 2024 Sunrise Diagnostic Centre. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- SEARCH MODAL -->
+    <div id="searchModal" class="modal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Search Tests</h3>
+                <span style="cursor:pointer; font-size: 24px;" onclick="closeModals()">&times;</span>
+            </div>
+            <input type="text" id="searchInput" placeholder="Start typing (e.g. CBC, Liver)..." style="width: 100%; padding: 15px; border-radius: 10px; border: 1px solid #ddd;">
+            <div id="searchSuggestions" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <!-- BOOKING MODAL -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h2>Book Appointment</h2>
+                <span style="cursor:pointer; font-size: 24px;" onclick="closeModals()">&times;</span>
+            </div>
+            <form id="bookingForm">
+                <div class="form-group">
+                    <label>Test Name</label>
+                    <select id="formTestName"></select>
+                </div>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" id="userMobile" required>
+                </div>
+                <div class="form-group">
+                    <label>Preferred Date</label>
+                    <input type="date" id="testDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Confirm via Gmail</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- JAVASCRIPT LOGIC ---
+        const tests = [
+            { id: 1, name: "Complete Blood Count (CBC)", old: 800, price: 499, img: "cbc.png" },
+            { id: 2, name: "HbA1c (Diabetes Check)", old: 1200, price: 699, img: "lft.png" },
+            { id: 3, name: "Liver Function Test (LFT)", old: 1500, price: 999, img: "lft.png" },
+            { id: 4, name: "Thyroid Profile (Total)", old: 1100, price: 550, img: "https://images.unsplash.com/photo-1511174511562-5f7f185854c8?w=400" },
+            { id: 5, name: "Vitamin D (25 OH)", old: 2000, price: 1299, img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400" },
+            { id: 6, name: "Kidney Function Test (KFT)", old: 1800, price: 1099, img: "https://images.unsplash.com/photo-1580281657521-0e521c06f193?w=400" },
+            { id: 7, name: "Lipid Profile", old: 1600, price: 999, img: "https://images.unsplash.com/photo-1580281657521-5c57b9ee76f1?w=400" },
+            { id: 8, name: "Urine Routine Test", old: 500, price: 299, img: "https://images.unsplash.com/photo-1526481280690-3d64a2f0f72f?w=400" },
+            { id: 9, name: "ECG (Electrocardiogram)", old: 1200, price: 799, img: "https://images.unsplash.com/photo-1511174511562-5f7f185854c8?w=400" },
+            { id: 10, name: "COVID-19 Antibody Test", old: 1500, price: 899, img: "https://images.unsplash.com/photo-1514894781502-c12f8b5da404?w=400" },
+            { id: 11, name: "Iron Studies", old: 1400, price: 950, img: "https://images.unsplash.com/photo-1511174511562-5f7f185854c8?w=400" },
+            { id: 12, name: "Vitamin B12 Check", old: 1200, price: 799, img: "https://images.unsplash.com/photo-1517971071642-34a2b5a7a0b3?w=400" },
+            { id: 13, name: "CRP (Inflammation Marker)", old: 900, price: 549, img: "https://images.unsplash.com/photo-1580281657521-3b86acc4910a?w=400" },
+            { id: 14, name: "Allergy Panel", old: 2500, price: 1599, img: "https://images.unsplash.com/photo-1511174511562-5f7f185854c8?w=400" },
+            { id: 15, name: "HbA1c + Lipid Combo", old: 2500, price: 1499, img: "https://images.unsplash.com/photo-1514894781502-c12f8b5da404?w=400" }
+        ];
+
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id + '-page').classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function renderTests() {
+            const popGrid = document.getElementById('popular-grid');
+            const allGrid = document.getElementById('all-tests-grid');
+            
+            const html = tests.map(t => `
+                <div class="test-card">
+                    <img src="${t.img}" class="test-img">
+                    <div class="test-name">${t.name}</div>
+                    <div class="price-row">
+                        <span class="old-price">₹${t.old}</span>
+                        <span class="new-price">₹${t.price}</span>
+                    </div>
+                    <button class="btn-book-sm" onclick="openBooking(${t.id})">Book Test</button>
+                </div>
+            `).join('');
+
+            allGrid.innerHTML = html;
+            popGrid.innerHTML = tests.slice(0, 3).map(t => `
+                <div class="test-card">
+                    <img src="${t.img}" class="test-img">
+                    <div class="test-name">${t.name}</div>
+                    <div class="price-row">
+                        <span class="old-price">₹${t.old}</span>
+                        <span class="new-price">₹${t.price}</span>
+                    </div>
+                    <button class="btn-book-sm" onclick="openBooking(${t.id})">Book Test</button>
+                </div>
+            `).join('');
+        }
+
+        function openBooking(id) {
+            const test = tests.find(t => t.id === id);
+            const select = document.getElementById('formTestName');
+            select.innerHTML = tests.map(t => `<option value="${t.name}" ${t.id === id ? 'selected' : ''}>${t.name}</option>`).join('');
+            document.getElementById('bookingModal').style.display = 'block';
+        }
+
+        function closeModals() {
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+        }
+
+        // Search Logic
+        document.getElementById('searchBtn').onclick = () => document.getElementById('searchModal').style.display = 'block';
+        document.getElementById('searchInput').oninput = (e) => {
+            const val = e.target.value.toLowerCase();
+            const filtered = tests.filter(t => t.name.toLowerCase().includes(val));
+            document.getElementById('searchSuggestions').innerHTML = filtered.map(t => `
+                <div style="padding: 10px; border-bottom: 1px solid #eee; cursor:pointer;" onclick="openBooking(${t.id}); closeModals();">
+                    <strong>${t.name}</strong> - ₹${t.price}
+                </div>
+            `).join('');
+        };
+
+        // Form Submit
+        document.getElementById('bookingForm').onsubmit = (e) => {
+            e.preventDefault();
+            const body = `Booking for: ${document.getElementById('formTestName').value}%0D%0AName: ${document.getElementById('userName').value}%0D%0AMobile: ${document.getElementById('userMobile').value}%0D%0ADate: ${document.getElementById('testDate').value}`;
+            window.location.href = `mailto:contact@sunrisediagnostic.com?subject=New Test Booking&body=${body}`;
+        };
+
+        // Dark Mode
+        document.getElementById('themeToggle').onclick = () => {
+            const body = document.body;
+            const current = body.getAttribute('data-theme');
+            body.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+        };
+
+        window.onload = renderTests;
+    </script>
+</body>
+</html>
